@@ -6,14 +6,13 @@ void exercise2(int);
 int exercise3(char[]);
 void exercise4(char[], char[]);
 int exercise5(char[], char[]);
+int exercise6(int, int, int, int);
 int validHexChar(char);
 int getIntValue(char);
 int contains(char[], char);
+void print_binary(unsigned int num);
 
 int main() {
-    
-    
-
     //exercise1();
 
     //exercise2(10);
@@ -30,9 +29,12 @@ int main() {
     // printf("string1 after being super squeezed: %s", string1);
 
     //exercise 5
-    char string3[] = "test";
-    char string4[] = "slow";
-    printf("index where the first character from string4 occurs: %d\n", exercise5(string3, string4));
+    // char string3[] = "test";
+    // char string4[] = "slow";
+    // printf("index where the first character from string4 occurs: %d\n", exercise5(string3, string4));
+
+    int result = exercise6(0b10111111, 2, 3, 0b10100101);
+    print_binary(result);
     return 0;
 }
 
@@ -89,6 +91,14 @@ int exercise5(char string1[], char string2[]) {
     return -1;
 }
 
+int exercise6(int x, int p, int n , int y) {
+    int mask;
+    mask = ~(~0U << n);
+    y = (y & mask) << p;
+    mask = ~(mask << p);
+    return (x & mask) | y;
+}
+
 int contains(char string[], char check) {
     for(int i = 0; string[i] != '\0'; i++)
         if(string[i] == check)
@@ -114,4 +124,18 @@ int getIntValue(char val) {
     else if(val >= 'A' && val <= 'F')
         return val - 'A' + 10;
     return 0;
+}
+
+void print_binary(unsigned int num) {
+    int total_bits = sizeof(num) * CHAR_BIT;
+    unsigned int mask = 1 << (total_bits - 1);
+    
+    for (int i = 0; i < total_bits; i++) {
+        putchar((num & mask) ? '1' : '0');
+        mask >>= 1;
+        if ((i + 1) % 8 == 0 && i != total_bits - 1) {
+            putchar(' ');
+        }
+    }
+    putchar('\n');
 }
