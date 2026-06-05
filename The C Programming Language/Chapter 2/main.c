@@ -9,6 +9,9 @@ int exercise5(char[], char[]);
 int exercise6(int, int, int, int);
 int exercise7(int, int, int);
 int exercise8(int, int);
+unsigned exercise9(unsigned);
+void exercise10(char[]);
+
 int validHexChar(char);
 int getIntValue(char);
 int contains(char[], char);
@@ -48,6 +51,16 @@ int main() {
     // print_binary(value);
     // value = exercise8(0xF46D, 33);
     // print_binary(value);
+
+    //exercise 9
+    // unsigned result = exercise9(0b000000000);
+    // printf("Number of 1 bits in value: %u\n", result);
+
+    //exercise 10
+    // char test[] = "HELLO WorLD";
+    // printf("Before: %s\n", test);
+    // exercise10(test);
+    // printf("After: %s\n", test);
     return 0;
 }
 
@@ -118,6 +131,25 @@ int exercise7(int x, int p, int n) {
 int exercise8(int x, int n) {
     int total_bits = sizeof(x) * CHAR_BIT;
     return (x >> n) | (x << (total_bits - n));
+}
+
+unsigned exercise9(unsigned x) {
+    int count = 0;
+    while(x != 0) {
+        x = x & (x - 1);
+        count++;
+    }
+    return count;
+}
+
+void exercise10(char string[]) {
+    int i = 0;
+    while(string[i] != '\0') {
+        string[i] = (string[i] >= 'A' && string[i] <= 'Z')
+            ? string[i] + 'a' - 'A'
+            : string[i];
+        i++;
+    }
 }
 
 int contains(char string[], char check) {
