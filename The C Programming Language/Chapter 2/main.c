@@ -7,6 +7,8 @@ int exercise3(char[]);
 void exercise4(char[], char[]);
 int exercise5(char[], char[]);
 int exercise6(int, int, int, int);
+int exercise7(int, int, int);
+int exercise8(int, int);
 int validHexChar(char);
 int getIntValue(char);
 int contains(char[], char);
@@ -33,8 +35,19 @@ int main() {
     // char string4[] = "slow";
     // printf("index where the first character from string4 occurs: %d\n", exercise5(string3, string4));
 
-    int result = exercise6(0b10111111, 2, 3, 0b10100101);
-    print_binary(result);
+    //exercise 6
+    // int result = exercise6(0xBF, 2, 3, 0xA5);
+    // print_binary(result);
+
+    //exercise 7
+    // int result = exercise7(0b01011011, 2, 3);
+    // print_binary(result);
+
+    //exercise 8
+    // int value = 0xF46D;
+    // print_binary(value);
+    // value = exercise8(0xF46D, 33);
+    // print_binary(value);
     return 0;
 }
 
@@ -92,11 +105,19 @@ int exercise5(char string1[], char string2[]) {
 }
 
 int exercise6(int x, int p, int n , int y) {
-    int mask;
-    mask = ~(~0U << n);
+    int mask = ~(~0U << n);
     y = (y & mask) << p;
     mask = ~(mask << p);
     return (x & mask) | y;
+}
+
+int exercise7(int x, int p, int n) {
+    return x ^ (~(~0U << n) << p);
+}
+
+int exercise8(int x, int n) {
+    int total_bits = sizeof(x) * CHAR_BIT;
+    return (x >> n) | (x << (total_bits - n));
 }
 
 int contains(char string[], char check) {
@@ -108,9 +129,9 @@ int contains(char string[], char check) {
 
 int validHexChar(char testChar) {
     if(
-        testChar >= 'a' && testChar <= 'f' 
-        || testChar >= 'A' && testChar <= 'F'
-        || testChar >= '0' && testChar <= '9'
+        (testChar >= 'a' && testChar <= 'f') ||
+        (testChar >= 'A' && testChar <= 'F') ||
+        (testChar >= '0' && testChar <= '9')
     )
         return 1;
     else return 0;
